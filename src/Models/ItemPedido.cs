@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 public class ItemPedido
 {
+    public int Id{get; set;}
+
     [Required]
-    public Produto produto{get; set;}
+    public Produto Produto{get; set;} = new ();
     [Required]
     public int Quantidade{get; set;}
 
