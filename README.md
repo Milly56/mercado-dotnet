@@ -7,7 +7,10 @@ Sistema de supermercado fictício desenvolvido em C# para praticar orientação 
 ## 🚀 Tecnologias
 
 - **C#** — linguagem principal
-- **.NET** — plataforma de desenvolvimento
+- **.NET 10** — plataforma de desenvolvimento
+- **Entity Framework Core** — ORM para acesso ao banco de dados
+- **SQL Server 2022** — banco de dados relacional
+- **Docker & Docker Compose** — containerização da aplicação e banco
 
 ---
 
@@ -17,11 +20,13 @@ Sistema de supermercado fictício desenvolvido em C# para praticar orientação 
 mercado-dotnet/
 ├── Controllers/         # Recebe e responde requisições HTTP
 ├── Data/                # Contexto do banco de dados (Entity Framework)
+│   └── AppDbContext.cs
 ├── Enums/               # Enumerações da aplicação
 │   ├── Categoria.cs
 │   └── StatusPedido.cs
 ├── Interfaces/          # Contratos para Services e Repositories
 ├── Middlewares/         # Interceptadores de requisição (ex: autenticação, erros)
+├── Migrations/          # Histórico de migrações do banco de dados
 ├── Models/              # Entidades do domínio
 │   ├── Produto.cs
 │   ├── Cliente.cs
@@ -32,6 +37,8 @@ mercado-dotnet/
 │   └── ItemPedido.cs
 ├── Repositories/        # Acesso a dados
 ├── Services/            # Regras de negócio
+├── appsettings.json
+├── .env.example
 ├── Dockerfile
 └── docker-compose.yml
 ```
@@ -68,11 +75,15 @@ mercado-dotnet/
 - Propriedades automáticas e calculadas
 - Enums
 - Data Annotations (`[EmailAddress]`, `[Required]`)
+- Entity Framework Core com Migrations
 - Separação de responsabilidades (Models, Services, Repositories)
+- Containerização com Docker
 
 ---
 
 ## ▶️ Como rodar
+
+### Com Docker (recomendado)
 
 ```bash
 # Clone o repositório
@@ -81,25 +92,59 @@ git clone https://github.com/seu-usuario/mercado-dotnet.git
 # Entre na pasta
 cd mercado-dotnet
 
+# Configure as variáveis de ambiente
+cp .env.example .env
+
+# Suba os containers
+docker-compose up --build -d
+```
+
+### Sem Docker
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/mercado-dotnet.git
+
+# Entre na pasta
+cd mercado-dotnet
+
+# Configure a connection string no appsettings.Development.json
+
+# Rode as migrations
+dotnet ef database update
+
 # Rode o projeto
 dotnet run
 ```
 
 ---
 
+## 🔐 Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz baseado no `.env.example`:
+
+```env
+SA_PASSWORD=suasenha
+DB_CONNECTION=Server=sqlserver;Database=Supermercado;User Id=sa;Password=suasenha;TrustServerCertificate=True;
+```
+
+> ⚠️ Nunca suba o `.env` para o repositório!
+
+---
+
 ## 🗺️ Próximos passos
 
 - [x] Criar Models e Enums
+- [x] Configurar Entity Framework Core e DbContext
+- [x] Configurar Docker e docker-compose
 - [ ] Criar Interfaces para Services e Repositories
-- [ ] Implementar Services (regras de negócio)
 - [ ] Implementar Repositories (acesso a dados)
-- [ ] Configurar Data (Entity Framework / DbContext)
+- [ ] Implementar Services (regras de negócio)
 - [ ] Implementar Controllers (endpoints REST)
 - [ ] Adicionar Middlewares (tratamento de erros, autenticação)
 - [ ] Adicionar LINQ para buscas e filtros
 - [ ] Implementar eventos de estoque baixo com Delegates & Events
 - [ ] Adicionar operações assíncronas com Async/Await
-- [ ] Configurar Dockerfile e docker-compose
 
 ---
 
