@@ -1,31 +1,73 @@
-# 🛒 mercado-dotnet
+<h1 align="center">🛒 mercado-dotnet</h1>
 
-Sistema de supermercado fictício desenvolvido em C# para praticar orientação a objetos, herança, enums e boas práticas de arquitetura. O projeto simula cadastro de produtos, clientes, funcionários e pedidos, separando responsabilidades em Models e Services.
+<p align="center">
+  Sistema de supermercado fictício desenvolvido em C# para praticar orientação a objetos, herança, enums e boas práticas de arquitetura.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white" alt="C#">
+  <img src="https://img.shields.io/badge/.NET_10-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET 10">
+  <img src="https://img.shields.io/badge/SQL_Server-CC2927?style=for-the-badge&logo=microsoftsqlserver&logoColor=white" alt="SQL Server">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+  <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" alt="Swagger">
+</p>
 
 ---
 
-## 🚀 Tecnologias
+# 📖 Sobre o Projeto
 
-- **C#** — linguagem principal
-- **.NET 10** — plataforma de desenvolvimento
-- **Entity Framework Core** — ORM para acesso ao banco de dados
-- **SQL Server 2022** — banco de dados relacional
-- **Docker & Docker Compose** — containerização da aplicação e banco
+O **mercado-dotnet** foi desenvolvido com o objetivo de praticar os principais conceitos do ecossistema C# e .NET, simulando o gerenciamento de um supermercado fictício. O sistema inclui cadastro de produtos, clientes, funcionários e pedidos, com separação clara de responsabilidades entre Models, Services, Repositories e Controllers.
 
 ---
 
-## 📁 Estrutura do Projeto
+# ✨ Funcionalidades
+
+- ✅ Cadastro e gerenciamento de funcionários
+- ✅ Cadastro e gerenciamento de produtos
+- ✅ Cadastro de clientes
+- ✅ Registro e controle de pedidos
+- ✅ Controle de estoque por categoria
+- ✅ Documentação automática com Swagger
+- 🔲 Middlewares de tratamento de erros
+- 🔲 Autenticação
+- 🔲 Relatórios com LINQ
+- 🔲 Eventos de estoque baixo com Delegates & Events
+
+---
+
+# 🛠️ Tecnologias Utilizadas
+
+## Back-end
+- C# com .NET 10
+- ASP.NET Core Web API
+- Entity Framework Core
+
+## Banco de Dados
+- SQL Server 2022
+
+## Outras Ferramentas
+- Docker & Docker Compose
+- Swagger / Swashbuckle
+
+---
+
+# 📁 Estrutura do Projeto
 
 ```
 mercado-dotnet/
 ├── Controllers/         # Recebe e responde requisições HTTP
 ├── Data/                # Contexto do banco de dados (Entity Framework)
 │   └── AppDbContext.cs
+├── DTOs/                # Objetos de transferência de dados
+│   ├── Request/
+│   │   └── FuncionarioRequestDto.cs
+│   └── Response/
+│       └── FuncionarioResponseDto.cs
 ├── Enums/               # Enumerações da aplicação
 │   ├── Categoria.cs
-│   └── StatusPedido.cs
+│   └── Status.cs
 ├── Interfaces/          # Contratos para Services e Repositories
-├── Middlewares/         # Interceptadores de requisição (ex: autenticação, erros)
+├── Middlewares/         # Interceptadores de requisição
 ├── Migrations/          # Histórico de migrações do banco de dados
 ├── Models/              # Entidades do domínio
 │   ├── Produto.cs
@@ -45,7 +87,7 @@ mercado-dotnet/
 
 ---
 
-## 🧱 Models
+# 🧱 Models
 
 | Classe | Descrição |
 |---|---|
@@ -59,29 +101,30 @@ mercado-dotnet/
 
 ---
 
-## 📌 Enums
+# 📌 Enums
 
 | Enum | Valores |
 |---|---|
-| `Categoria` | Hortifruti, Laticinios, Bebidas, Padaria, Carnes, Limpeza, Higiene |
-| `StatusPedido` | Aberto, Finalizado, Cancelado |
+| `Categoria` | Bebidas, Limpeza, Higiene, Padaria, Carnes, Outros |
+| `Status` | Aberto, Fechado, Cancelado |
 
 ---
 
-## 📚 Conceitos praticados
+# 📚 Conceitos Praticados
 
 - Orientação a Objetos (POO)
 - Herança e Encapsulamento
 - Propriedades automáticas e calculadas
 - Enums
-- Data Annotations (`[EmailAddress]`, `[Required]`)
+- DTOs (Request e Response)
+- Data Annotations (`[Required]`, `[StringLength]`, `[RegularExpression]`)
 - Entity Framework Core com Migrations
 - Separação de responsabilidades (Models, Services, Repositories)
 - Containerização com Docker
 
 ---
 
-## ▶️ Como rodar
+# ▶️ Como Rodar
 
 ### Com Docker (recomendado)
 
@@ -96,7 +139,7 @@ cd mercado-dotnet
 cp .env.example .env
 
 # Suba os containers
-docker-compose up --build -d
+docker compose up --build -d
 ```
 
 ### Sem Docker
@@ -108,7 +151,7 @@ git clone https://github.com/seu-usuario/mercado-dotnet.git
 # Entre na pasta
 cd mercado-dotnet
 
-# Configure a connection string no appsettings.Development.json
+# Configure a connection string no appsettings.json
 
 # Rode as migrations
 dotnet ef database update
@@ -119,33 +162,37 @@ dotnet run
 
 ---
 
-## 🔐 Variáveis de Ambiente
+# 🔐 Variáveis de Ambiente
 
 Crie um arquivo `.env` na raiz baseado no `.env.example`:
 
 ```env
 SA_PASSWORD=suasenha
-DB_CONNECTION=Server=sqlserver;Database=Supermercado;User Id=sa;Password=suasenha;TrustServerCertificate=True;
+DB_CONNECTION=Server=sqlserver;Database=Supermercado;User Id=sa;Password=suasenha;TrustServerCertificate=True
 ```
 
 > ⚠️ Nunca suba o `.env` para o repositório!
 
 ---
 
-## 🗺️ Próximos passos
+# 🗺️ Próximos Passos
 
 - [x] Criar Models e Enums
 - [x] Configurar Entity Framework Core e DbContext
 - [x] Configurar Docker e docker-compose
-- [ ] Criar Interfaces para Services e Repositories
-- [ ] Implementar Repositories (acesso a dados)
-- [ ] Implementar Services (regras de negócio)
-- [ ] Implementar Controllers (endpoints REST)
-- [ ] Adicionar Middlewares (tratamento de erros, autenticação)
+- [x] Criar DTOs de Request e Response
+- [x] Implementar Repositories
+- [x] Implementar Services
+- [x] Implementar Controllers com endpoints REST
+- [ ] Adicionar Middlewares de tratamento de erros
+- [ ] Adicionar autenticação
 - [ ] Adicionar LINQ para buscas e filtros
 - [ ] Implementar eventos de estoque baixo com Delegates & Events
 - [ ] Adicionar operações assíncronas com Async/Await
 
 ---
 
-> Projeto desenvolvido para fins de aprendizado de C# e .NET.
+# 📄 Licença
+
+Este projeto está sob a licença **MIT**.  
+Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
