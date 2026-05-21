@@ -3,3 +3,5 @@ bin
 *.user
 .vs/
 appsettings.Development.json
+.env
+appsettings.Development.json
