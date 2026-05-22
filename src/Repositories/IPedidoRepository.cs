@@ -3,11 +3,11 @@ public interface IPedidoRepository : IRepository<Pedido>
 
     Task<Pedido?> GetByIdWithDetailsAsync(int id);
     Task<IEnumerable<Pedido>> GetAllWithDetailsAsync();
-    Task<IEnumerable<Pedido>> GetByStatusWithDetailsAsync(Status status);                                                        // Status é enum, não string
-    Task<IEnumerable<Pedido>> GetByProdutoNameWithDetailsAsync(string produtoName);                                              // vem de Itens -> Produto.Nome
-    Task<IEnumerable<Pedido>> GetByStatusAndDateRangeWithDetailsAsync(Status status, DateTime startDate, DateTime endDate);      // Data, não DataPedido
-    Task<IEnumerable<Pedido>> GetByQuantidadeRangeAndStatusWithDetailsAsync(int minQuantidade, int maxQuantidade, Status status); // Quantidade vem do ItemPedido
-    Task<IEnumerable<Pedido>> GetByClienteNameAndStatusWithDetailsAsync(string clienteName, Status status);                      // Cliente é navigation direta
+    Task<IEnumerable<Pedido>> GetByStatusWithDetailsAsync(Status status);                                                      
+    Task<IEnumerable<Pedido>> GetByProdutoNameWithDetailsAsync(string produtoName);                                            
+    Task<IEnumerable<Pedido>> GetByStatusAndDateRangeWithDetailsAsync(Status status, DateTime startDate, DateTime endDate);      
+    Task<IEnumerable<Pedido>> GetByQuantidadeRangeAndStatusWithDetailsAsync(int minQuantidade, int maxQuantidade, Status status);
+    Task<IEnumerable<Pedido>> GetByClienteNameAndStatusWithDetailsAsync(string clienteName, Status status);                  
 
 
     Task<IEnumerable<Pedido>> GetAllWithPaginationAsync(int pageNumber, int pageSize);
